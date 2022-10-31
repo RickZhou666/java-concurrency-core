@@ -29,14 +29,15 @@ public class JMHExample22 {
     @Setup
     public void init() throws IOException {
         this.alexBytes = Files.readAllBytes(
-                // Paths.get("/Users/runzhou/git/java-concurrency-core/target/classes/com/rick/chap_01/bullet05_profiler/content02_gcprofiler/Alex.class"));
-                Paths.get("/Users/runzhou/git/java-concurrency-core/target/classes/Alex.class"));
+                Paths.get("/Users/runzhou/git/java-concurrency-core/target/classes/com/rick/chap_01/bullet05_profiler/content02_gcprofiler/Alex.class"));
+                // Paths.get("/Users/runzhou/git/java-concurrency-core/target/classes/Alex.class"));
         this.classLoader = new AlexClassLoader(alexBytes);
     }
 
     @Benchmark
     public Object testLoadClass() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        Class<?> alexClass = Class.forName("Alex", true, classLoader);
+                                                // using . instead of /
+        Class<?> alexClass = Class.forName("com.rick.chap_01.bullet05_profiler.content02_gcprofiler.Alex", true, classLoader);
         return alexClass.newInstance();
     }
 
